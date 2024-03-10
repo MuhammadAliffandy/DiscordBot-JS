@@ -3,16 +3,21 @@ require('dotenv').config();
 
 const client = new Discord.Client({ intents: [
     Discord.GatewayIntentBits.Guilds,
-    Discord.GatewayIntentBits.GuildMessages
+    Discord.GatewayIntentBits.GuildMessages,
+    Discord.GatewayIntentBits.MessageContent,
 ]});
 
-client.on('message', message => {
+client.on('messageCreate', message => {
+
     if (message.content === 'hello') {
-        message.reply('Hello World~!');
+        message.reply('Anyeong !!');
     }
-    if (message.content === 'testbot') {
-        message.reply("Hi! I'm up and Running~!");
+    if (message.content === 'oi') {
+        message.reply("oi ~~");
     }
+    if (message.content === 'san join') {
+        message.reply('Iya san, sini dong !!');
+    } 
     if (message.content === 'ping') {
         message.reply('Pong~!');
     } 
