@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
+require('dotenv').config();
 
 const client = new Client({ 
     intents: [
@@ -23,4 +24,4 @@ client.once('ready', () => {
     console.log('The Discord Bot is Ready!');
 })
 
-client.login('MTIxNjMzNTE2ODYwMDgwNTUxNg.GVIkNj.Gwsp8vvzR0judFzSx4oWgS6Qfz7r3A_4fSLWm4')
+client.login(process.env.BOT_TOKEN)
