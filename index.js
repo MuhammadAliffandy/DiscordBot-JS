@@ -1,22 +1,20 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const Discord = require('discord.js');
 require('dotenv').config();
 
-const client = new Client({ 
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages
-    ] 
-});
+const client = new Discord.Client({ intents: [
+    Discord.GatewayIntentBits.Guilds,
+    Discord.GatewayIntentBits.GuildMessages
+]});
 
 client.on('message', message => {
     if (message.content === 'hello') {
-        message.channel.send('Hello World~!');
+        message.reply('Hello World~!');
     }
     if (message.content === 'testbot') {
-        message.channel.send("Hi! I'm up and Running~!");
+        message.reply("Hi! I'm up and Running~!");
     }
     if (message.content === 'ping') {
-        message.channel.send('Pong~!');
+        message.reply('Pong~!');
     } 
 })
 
