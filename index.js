@@ -10,17 +10,26 @@ const client = new Discord.Client({ intents: [
 
 client.on('messageCreate', message => {
 
-    if (message.content === 'hello') {
+    const messageSelection  = message.content.toLocaleLowerCase(); 
+
+    if (messageSelection === 'chaewon') {
+        message.reply('Hallo~ , jadilah temanku ehe');
+    }
+    if (messageSelection === 'hello') {
         message.reply('Anyeong !!');
     }
-    if (message.content === 'oi') {
+    if (messageSelection === 'oi') {
         message.reply("oi ~~");
     }
-    if (message.content === 'ping') {
+    if (messageSelection === 'ping') {
         message.reply('Pong~!');
     }
     
-    const sentence =  message.content.split(' ');
+    if(badWord.some(data => { return data === messageSelection } )) {
+        message.reply('Uhh, Jangan berkata kasar ya ~!'); 
+    }
+
+    const sentence =  messageSelection.split(' ');
     
     if (sentence.length > 1 ) {
         const isMatch = badWord.some(word => sentence.includes(word));
@@ -29,14 +38,10 @@ client.on('messageCreate', message => {
         }
     }  
 
-
 })
 
 client.once('ready', () => {
     console.log('The Discord Bot is Ready!');
 })
 
-
 client.login(process.env.BOT_TOKEN)
-
-console.log(badWord[1])
