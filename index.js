@@ -1,25 +1,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const badWord = require('./badword.json')
-const SpotifyWebApi = require('spotify-web-api-node');
-
 const voiceBot = require('./src/join')
-
-// Autentikasi dengan Spotify
-const spotifyApi = new SpotifyWebApi({
-    clientId: process.env.SPOTIFY_CLIENT_ID,
-    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-});
-
-spotifyApi.clientCredentialsGrant().then(
-    function(data) {
-        console.log('Token akses diterima');
-        spotifyApi.setAccessToken(data.body['access_token']);
-    },
-    function(err) {
-        console.log('Tidak dapat mengambil token akses', err);
-    }
-);
 
 // client discord
 const client = new Discord.Client({ intents: [
@@ -75,15 +57,12 @@ client.on('messageCreate', async (message) => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if (command === 'join') {
+    try { 
+        await voiceBot.run( client, message, args , spotifyApi);
 
-        try { 
-            await voiceBot.run( client, message, args , spotifyApi);
-
-        } catch (error) {
-            console.error(error);
-            message.channel.send('Terjadi kesalahan saat mencoba bergabung ke voice channel.');
-        }
+    } catch (error) {
+        console.error(error);
+        message.channel.send('Terjadi kesalahan saat mencoba bergabung ke voice channel.');
     }
 
 })

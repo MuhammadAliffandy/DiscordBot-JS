@@ -1,16 +1,13 @@
 const voiceDiscord = require('@discordjs/voice')
-const { createReadStream } = require('node:fs');
-const { join } = require('node:path');
+const voiceHandle = require('./play')
 
-module.exports.run = async ( client , message , args , spotifyApi) => {
+module.exports.run = async ( client , message , args ) => {
 
-    const tracks = await spotifyApi.searchTracks('Smart');
-    const firstTrack = tracks.body.tracks.items[0];
-    const trackUrl = firstTrack.external_urls.spotify;
+    const messageSelection  = message.content.toLocaleLowerCase(); 
 
     const channel =  message.member.voice.channel;
 
-    if(!channel) return message.channel.send('Nothing voice channel joined')
+    if(!channel) return message.channel.send('Chaewon belum bergabung ke channel')
 
     const connection = voiceDiscord.joinVoiceChannel({
         channelId : channel.id,
@@ -20,26 +17,15 @@ module.exports.run = async ( client , message , args , spotifyApi) => {
         selfMute: false
     })
 
-    const player = voiceDiscord.createAudioPlayer({
-        behaviors: {
-            noSubscriber: voiceDiscord.NoSubscriberBehavior.Play,
-        },
-    
-    });
+    if(messageSelection === '!join'){
+        connection;
+        message.channel.send('Haloo chagiyaa , dengerin musik yuk 🎶')
+    }else if(messageSelection === '!leave'){
+        connection.destroy();
+        message.channel.send('Byebyeee~ ❤️')
+    }
 
-    
-    resource = voiceDiscord.createAudioResource(join(__dirname, 'Smart.mp3'), { inlineVolume: true });
-    resource.volume.setVolume(0.5);
-
-    console.log(join(__dirname, 'smart.mp3'))
-    
-    player.play(resource);
-    connection.subscribe(player);
-    
-    player.on(voiceDiscord.AudioPlayerStatus.Playing, () => {
-        console.log('The audio player has started playing!');
-        message.channel.send(`Sedang memutar lagu dari: ${trackUrl}`);
-    });
+    voiceHandle.playAudio(message , connection)
 
 
 }
