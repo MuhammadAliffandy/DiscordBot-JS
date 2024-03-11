@@ -1,7 +1,7 @@
 const voiceDiscord = require('@discordjs/voice')
 const voiceHandle = require('./play')
 
-module.exports.run = async ( client , message , args ) => {
+module.exports.run = async ( client , message ) => {
 
     const messageSelection  = message.content.toLocaleLowerCase(); 
 

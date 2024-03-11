@@ -45,7 +45,7 @@ client.on('messageCreate', async (message) => {
     // voice algorithm
 
     try { 
-        await voiceBot.run( client, message, args , spotifyApi);
+        await voiceBot.run( client, message);
 
     } catch (error) {
         console.error(error);
