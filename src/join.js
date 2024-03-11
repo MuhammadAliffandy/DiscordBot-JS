@@ -9,23 +9,23 @@ module.exports.run = async ( client , message ) => {
 
     if(!channel) return message.channel.send('Chaewon belum bergabung ke channel')
 
-    const connection = voiceDiscord.joinVoiceChannel({
+    const voiceChannelConfig = {
         channelId : channel.id,
         guildId : message.guild.id,
         adapterCreator: channel.guild.voiceAdapterCreator,
         selfDeaf: false,
         selfMute: false
-    })
-
-    if(messageSelection === '!join'){
-        connection;
-        message.channel.send('Haloo chagiyaa , dengerin musik yuk 🎶')
-    }else if(messageSelection === '!leave'){
-        connection.destroy();
-        message.channel.send('Byebyeee~ ❤️')
     }
 
-    voiceHandle.playAudio(message , connection)
+    if(messageSelection === '!join'){
+        voiceDiscord.joinVoiceChannel(voiceChannelConfig)
+        message.channel.send('Haloo chagiyaa , dengerin musik yuk 🎶')
+    }else if(messageSelection === '!leave'){
+        voiceDiscord.joinVoiceChannel(voiceChannelConfig).destroy();
+        message.channel.send('Byebyeee~ ❤️')
+    }
+    
+    voiceHandle.playAudio(message , connection = voiceDiscord.joinVoiceChannel(voiceChannelConfig))
 
 
 }
