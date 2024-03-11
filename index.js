@@ -14,38 +14,40 @@ const client = new Discord.Client({ intents: [
 
 client.on('messageCreate', async (message) => {
 
-    const messageSelection  = message.content.toLocaleLowerCase(); 
+    try { 
 
-    if (messageSelection === 'chaewon') {
-        message.reply('Hallo~ , jadilah temanku ehe');
-    }
-    if (messageSelection === 'hello') {
-        message.reply('Anyeong !!');
-    }
-    if (messageSelection === 'oi') {
-        message.reply("oi ~~");
-    }
-    if (messageSelection === 'ping') {
-        message.reply('Pong~!');
-    }
-    
-    if(badWord.some(data => { return data === messageSelection } )) {
-        message.reply('Uhh, Jangan berkata kasar ya ~!'); 
-    }
+        const messageSelection  = message.content.toLocaleLowerCase(); 
 
-    const sentence =  messageSelection.split(' ');
-    
-    if (sentence.length > 1 ) {
-        const isMatch = badWord.some(word => sentence.includes(word));
-        if(isMatch){
+        if (messageSelection === 'chaewon') {
+            message.reply('Hallo~ , jadilah temanku ehe');
+        }
+        if (messageSelection === 'hello') {
+            message.reply('Anyeong !!');
+        }
+        if (messageSelection === 'oi') {
+            message.reply("oi ~~");
+        }
+        if (messageSelection === 'ping') {
+            message.reply('Pong~!');
+        }
+        
+        if(badWord.some(data => { return data === messageSelection } )) {
             message.reply('Uhh, Jangan berkata kasar ya ~!'); 
         }
-    }  
 
-    // voice algorithm
+        const sentence =  messageSelection.split(' ');
+        
+        if (sentence.length > 1 ) {
+            const isMatch = badWord.some(word => sentence.includes(word));
+            if(isMatch){
+                message.reply('Uhh, Jangan berkata kasar ya ~!'); 
+            }
+        }
+        
+        if(messageSelection.startsWith('!')){
+            await voiceBot.run( client, message);
+        }
 
-    try { 
-        await voiceBot.run( client, message);
 
     } catch (error) {
         console.error(error);
