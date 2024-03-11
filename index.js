@@ -42,27 +42,14 @@ client.on('messageCreate', async (message) => {
         }
     }  
 
-    // spotify algorithm handle
-
-    if (messageSelection === '!search') {
-        const tracks = await spotifyApi.searchTracks('Smart');
-        const firstTrack = tracks.body.tracks.items[0];
-        message.channel.send(firstTrack.external_urls.spotify);
-    }
-
-    const prefix = '!'
-
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+    // voice algorithm
 
     try { 
         await voiceBot.run( client, message, args , spotifyApi);
 
     } catch (error) {
         console.error(error);
-        message.channel.send('Terjadi kesalahan saat mencoba bergabung ke voice channel.');
+        message.channel.send('Sebentar yaa, aku sedang sibuk ');
     }
 
 })
