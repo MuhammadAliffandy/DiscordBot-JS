@@ -10,9 +10,6 @@ const  createAudioResourceFromUrl = async (url) => {
 }
 
 const playAudio = async (message , connection , audioUrl , audioTitle,) => {
-
-    const messageSelection  = message.content.toLocaleLowerCase(); 
-
     const player = voiceDiscord.createAudioPlayer();
     
     const resource = await createAudioResourceFromUrl(audioUrl)
@@ -21,12 +18,6 @@ const playAudio = async (message , connection , audioUrl , audioTitle,) => {
     connection.subscribe(player);
     message.channel.send(`Sedang Memainkan Musik : ${audioTitle} `);
     cache.set('musicStatus' , 'played')
-
-    if( messageSelection === '!stopp' ) { 
-        player.stop(); 
-        connection.subscribe(player);
-        message.channel.send(`Lagunya berhenti yaa~ , 😘`);
-    }
 }
 
 module.exports = { playAudio }

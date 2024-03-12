@@ -75,6 +75,15 @@ module.exports.run = async ( client , message ) => {
             musicPicked[0].title,
         )
     }
+
+    if( messageSelection == '!stop' ) { 
+        console.log('TESTED  STOP')
+            const connection = voiceDiscord.joinVoiceChannel(voiceChannelConfig);
+            const player = voiceDiscord.createAudioPlayer();
+            player.stop(); 
+            connection.subscribe(player);
+            message.channel.send(`Lagunya berhenti yaa~ , 😘`);
+    }
     
 }
 

@@ -10,7 +10,9 @@ const searchMusic = async (message , keyword) => {
             id : data.id.videoId,
             number : `${index + 1}`,
             title : data.snippet.title,
-            link : `https://www.youtube.com/watch?v=${data.id.videoId}`
+            image : data.snippet.thumbnails.medium.url, 
+            channel : data.snippet.channelTitle, 
+            link : `https://www.youtube.com/watch?v=${data.id.videoId}`,
         }
 
         return jsonData;
@@ -18,7 +20,7 @@ const searchMusic = async (message , keyword) => {
 
     const listTextSearch = ytSearchList.map( (data,  index) => {
         const jsonData = {
-                name : '================================================',
+                name : data.channel,
                 value: `${index + 1}. ${data.title}` 
             }
         return jsonData;
@@ -33,8 +35,8 @@ const searchMusic = async (message , keyword) => {
     .setThumbnail('https://kpopping.com/documents/3f/5/240229-LE-SSERAFIM-Chaewon-EASY-and-Smart-at-M-Countdown-documents-17.jpeg?v=8b84f')
     .addFields(listTextSearch)
     .setTimestamp()
-    .setImage('https://o-cdn-cas.sirclocdn.com/parenting/images/kim-chaewon.width-800.format-webp.webp')
-    .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+    .setImage(ytSearchList[0].image)
+    .setFooter({ text: 'Chaewon Bot by Aliffandy', iconURL: 'https://o-cdn-cas.sirclocdn.com/parenting/images/kim-chaewon.width-800.format-webp.webp' });
 
     message.channel.send({ embeds: [exampleEmbed] });
 
