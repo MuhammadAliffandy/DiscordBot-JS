@@ -30,10 +30,12 @@ client.on('messageCreate', async (message) => {
         if (messageSelection === 'ping') {
             message.reply('Pong~!');
         }
-        
+
+
         if(badWord.some(data => { return data === messageSelection } )) {
             message.reply('Uhh, Jangan berkata kasar ya ~!'); 
         }
+
 
         const sentence =  messageSelection.split(' ');
         

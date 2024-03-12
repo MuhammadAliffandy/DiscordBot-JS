@@ -1,23 +1,28 @@
 const voiceDiscord = require('@discordjs/voice')
-const { join } = require('node:path');
+const ytdl = require('ytdl-core');
+const NodeCache = require("node-cache");
+const cache = new NodeCache();
 
-const playAudio = (message , connection) => {
+const  createAudioResourceFromUrl = async (url) => {
+    const stream = ytdl(url, { filter: 'audioonly',});
+    const audioResource = voiceDiscord.createAudioResource(stream);
+    return audioResource;
+}
+
+const playAudio = async (message , connection , audioUrl , audioTitle,) => {
 
     const messageSelection  = message.content.toLocaleLowerCase(); 
 
     const player = voiceDiscord.createAudioPlayer();
     
-    resource = voiceDiscord.createAudioResource(join(__dirname, 'Smart.mp3'), { inlineVolume: true });
-    resource.volume.setVolume(0.5);
+    const resource = await createAudioResourceFromUrl(audioUrl)
 
-    if(messageSelection === '!play' ){
-        
-        player.play(resource);
-        connection.subscribe(player);
-        message.channel.send(`Sedang memutar lagu dari: LE SSERAFIM`);
-        
-        
-    }else if( messageSelection === '!stop' ) { 
+    player.play(resource);
+    connection.subscribe(player);
+    message.channel.send(`Sedang Memainkan Musik : ${audioTitle} `);
+    cache.set('musicStatus' , 'played')
+
+    if( messageSelection === '!stopp' ) { 
         player.stop(); 
         connection.subscribe(player);
         message.channel.send(`Lagunya berhenti yaa~ , 😘`);
