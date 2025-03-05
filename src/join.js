@@ -21,7 +21,7 @@ module.exports.run = async ( client , message ) => {
     }
 
     if(!channel) {
-        message.channel.send('Chaewon belum bergabung ke channel')
+        message.channel.send('Karinaa belum bergabung ke channel')
     }else {
         if(messageSelection === '!join'){
             voiceDiscord.joinVoiceChannel(voiceChannelConfig)
@@ -39,9 +39,9 @@ module.exports.run = async ( client , message ) => {
 
     // handle search
 
-    if(messageSelection.split(' ')[0] === '!search'){
+    if(messageSelection.split(' ')[0] === '!cari'){
 
-        const filterMessage = messageSelection.split('!search');
+        const filterMessage = messageSelection.split('!cari');
 
         const searchKeyword  = filterMessage.join(' ')
 

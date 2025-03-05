@@ -18,7 +18,7 @@ client.on('messageCreate', async (message) => {
 
         const messageSelection  = message.content.toLocaleLowerCase(); 
 
-        if (messageSelection === 'chaewon') {
+        if (messageSelection === 'karinaa') {
             message.reply('Hallo~ , jadilah temanku ehe');
         }
         if (messageSelection === 'hello') {
